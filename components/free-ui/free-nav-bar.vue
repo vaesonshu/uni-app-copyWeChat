@@ -1,6 +1,6 @@
 <template>
 	<view class="">
-		<view class="bg-light" :class="fixed ? 'fixed-top' : ''">
+		<view :class="getClass">
 			<!-- 状态栏 -->
 			<view class="" :style="'height:' + statusBarHeight + 'px'"></view>
 			<!-- 导航 -->
@@ -11,8 +11,10 @@
 				</view>
 				<!-- 右边 -->
 				<view class="flex align-center">
-					<free-icon-button @click="search">&#xe6e3;</free-icon-button>
-					<free-icon-button @click="openExtend">&#xe682;</free-icon-button>
+					<slot name="right">
+						<free-icon-button @click="search">&#xe6e3;</free-icon-button>
+						<free-icon-button @click="openExtend">&#xe682;</free-icon-button>
+					</slot>
 				</view>
 			</view>
 		</view>
@@ -47,6 +49,10 @@
 			noreadnum: {
 				type: Number,
 				default: 0
+			},
+			bgColor: {
+				type: String,
+				default: "bg-light"
 			}
 		},
 		components: {
@@ -99,6 +105,10 @@
 			getTitle() {
 				let noreadnum = this.noreadnum > 0 ? '('+this.noreadnum+')' : ''
 				return this.title + noreadnum
+			},
+			getClass() {
+				let fixed = this.fixed ? 'fixed-top' : ''
+				return `${fixed} ${this.bgColor}`
 			}
 		},
 		methods: {

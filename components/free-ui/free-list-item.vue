@@ -21,7 +21,7 @@
 	export default {
 		props: {
 			coverSize: {
-				type: Number,
+				type: [Number, String],
 				default: 75
 			},
 			// 是否开启下边线
